@@ -1,6 +1,6 @@
 function [retrieved_indexes, similarities, new_case] = retrieve(case_library, new_case, similarity_threshold)
     
-    weighting_factors = [2 5 2 4 1 3 5 2 5];
+    weighting_factors = [1 3 2 1 3 5 4 3];
     
     max_values = get_max_values(case_library);
     
