@@ -1,6 +1,6 @@
 function [retrieved_indexes, similarities, new_case] = retrieve(case_library, new_case, similarity_threshold)
     
-    weighting_factors = [1; 3; 2; 1; 3; 5; 4; 3];
+    weighting_factors = [1; 3; 2; 1; 3; 5; 1; 3];
     
     max_values = get_max_values(case_library);
     
@@ -36,8 +36,8 @@ function [retrieved_indexes, similarities, new_case] = retrieve(case_library, ne
                                 new_case.SkinThickness / max_values('SkinThickness'));
                             
         distances(1,5) = calculate_absolute_distance(...
-                                case_library{i,'BloodPressure'} / max_values('BloodPressure'), ...
-                                new_case.Glucose / max_values('BloodPressure'));
+                                case_library{i,'Insulin'} / max_values('Insulin'), ...
+                                new_case.Glucose / max_values('Insulin'));
                             
         distances(1,6) = calculate_absolute_distance(...
                                 case_library{i,'BMI'} / max_values('BMI'), ...
@@ -64,6 +64,11 @@ function [retrieved_indexes, similarities, new_case] = retrieve(case_library, ne
         fprintf('Case %d out of %d has a similarity of %.2f%%...\n', i, size(case_library,1), final_similarity*100);
     end
     delete(f);
+    
+    disp(max_values('Glucose'));
+    disp(max_values('Insulin'));
+    disp(max_values('BMI'));
+    disp(max_values('Age'));
 end
 
 function [max_values] = get_max_values(case_library)

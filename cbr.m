@@ -12,13 +12,13 @@ function [] = cbr()
         'Delimiter', ',', ...
         'Format', formatSpec);
     
-    new_case.Pregnancies = 5;
-    new_case.Glucose = 140;
-    new_case.BloodPressure = 100;
-    new_case.SkinThickness = 33;
-    new_case.Insulin = 100;
-    new_case.BMI = 32.7;
-    new_case.DiabetesPedigreeFunction = 0.768;
+    new_case.Pregnancies = 2;
+    new_case.Glucose = 23;
+    new_case.BloodPressure = 48;
+    new_case.SkinThickness = 28;
+    new_case.Insulin = 52;
+    new_case.BMI = 17.2;
+    new_case.DiabetesPedigreeFunction = 0.7;
     new_case.Age = 25;
     
     fprintf('\nA começar a fase de Retrieve...\n\n');
