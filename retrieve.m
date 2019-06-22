@@ -1,11 +1,19 @@
 function [retrieved_indexes, similarities, new_case] = retrieve(case_library, new_case, similarity_threshold)
     
-    weighting_factors = [1 3 2 1 3 5 4 3];
+    weighting_factors = [1; 3; 2; 1; 3; 5; 4; 3];
     
     max_values = get_max_values(case_library);
     
     retrieved_indexes = [];
-    similarities = [];
+    similarities = []; 
+    
+    %waitbar
+    f = waitbar(0,'1','Name','A calcular Similaridades...',...
+        'CreateCancelBtn','setappdata(gcbf,''cancealing'',1)');
+
+    setappdata(f,'cancealing',0);
+
+    steps = size(case_library,1);
     
     for i=1:size(case_library,1)
         
@@ -13,7 +21,7 @@ function [retrieved_indexes, similarities, new_case] = retrieve(case_library, ne
         
         distances(1,1) = calculate_absolute_distance(...
                                 case_library{i,'Pregnancies'} / max_values('Pregnancies'), ...
-                                new_case.Pregancies / max_values('Pregnancies'));
+                                new_case.Pregnancies / max_values('Pregnancies'));
                             
         distances(1,2) = calculate_absolute_distance(...
                                 case_library{i,'Glucose'} / max_values('Glucose'), ...
@@ -51,8 +59,11 @@ function [retrieved_indexes, similarities, new_case] = retrieve(case_library, ne
             similarities = [similarities final_similarity];
         end
         
+        waitbar(i/steps,f,sprintf('%.0f de %.0f',i,size(case_library,1)));
+        
         fprintf('Case %d out of %d has a similarity of %.2f%%...\n', i, size(case_library,1), final_similarity*100);
     end
+    delete(f);
 end
 
 function [max_values] = get_max_values(case_library)

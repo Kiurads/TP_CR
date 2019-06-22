@@ -5,7 +5,7 @@ function [] = cbr()
     
     case_library = readtable('TemaCBR_diabetes.csv', ...
         'Delimiter', ',', ...
-        'Format', formatSpec)
+        'Format', formatSpec);
     
     new_case.Pregnancies = 1;
     new_case.Glucose = 96;
@@ -16,41 +16,40 @@ function [] = cbr()
     new_case.DiabetesPedigreeFunction = 0.245;
     new_case.Age = 42;
     
+    fprintf('\nA começar a fase de Retrieve...\n\n');
     
-    
-    fprintf('\nA come?ar a fase de Retrieve...\n\n');
-    
-    [retrieved_indexes, similarities, new_case] = retrieve(case_library, new_case, similarity_threshold);
+    [retrieved_indexes, similarities, new_case] = retrieve(case_library, new_case, ...
+                                    similarity_threshold);
     
     retrieved_cases = case_library(retrieved_indexes, :);
     
-    retrieved_cases.Similarity = similarities';
+    retrieved_cases.Similarity = similarities
     
-    fprintf('\nC?lculo dos Graus de Perten?a...\n\n');
+    fprintf('\nCálculo dos Graus de Pertença...\n\n');
     
-    [retrieved_cases] = a(retrieved_cases); 
+%     [retrieved_cases] = a(retrieved_cases); 
     
-    fprintf('\nA Terminar o C?lculo dos Graus de Perten?a...\n\n');   
+    fprintf('\nA Terminar o Cálculo dos Graus de Pertença...\n\n');   
     
     fprintf('\nTerminou a fase de Retrieve...\n\n');
     
-    disp(retrieved_cases);
+%     disp(retrieved_cases);
     
-    fprintf('\nA come?ar a fase de Reuse...\n\n');
+    fprintf('\nA começar a fase de Reuse...\n\n');
     
-    [new_price] = reuse(retrieved_cases,new_case,councilsLoc);
+%     [new_outcome] = reuse(retrieved_cases, new_case);
     
-    new_case.Price = new_price;
+%     new_case.Outcome = new_outcome;
 
-    fprintf('\n\nT?rmino da fase de Reuse...\n');
+    fprintf('\n\nTérmino da fase de Reuse...\n');
     
-    fprintf('\nA come?ar fase de Revise...\n\n');
+    fprintf('\nA começar fase de Revise...\n\n');
     
-    revise(new_case,tableLog);
+%     revise(new_case,tableLog);
     
-    fprintf('\nT?rmino da fase de Revise...\n');
+    fprintf('\nTérmino da fase de Revise...\n');
     
-    fprintf('\nT?rmino do programa.\n\n');
+    fprintf('\nTérmino do programa.\n\n');
 
 end
 
