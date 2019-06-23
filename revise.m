@@ -1,31 +1,10 @@
-function revise(new_case, tableLog)
-    
-%     criar nova coluna para novo campo
-    nomes = {'Added'};
-    column = cell2table(cell(1,1),'VariableNames',nomes);
+function [new_case] = revise(new_case, outcome)
 
-    disp(new_case)
-%     adicionar nova coluna ao caso a adicionar para ficar compativel
-    Names = {'Pregnancies', ...
-        'Glucose', ...
-        'BloodPressure', ...
-        'SkinThickness', ...
-        'Insulin', ...
-        'BMI', ...
-        'DiabetesPedigreeFunction', ...
-        'Age', ...
-        'Outcome', ...
-        'Added'};
-    new_case = struct2table(new_case);
-    new_case = [new_case column];
-    new_case.Properties.VariableNames = Names;
-    new_case.Added = 0.0;
-    
-    tableLog = [tableLog;new_case]; % adiciona nova linha a tabela
-    
-    writetable(tableLog,'Historico.csv');
-    
-    disp(new_case);
-    disp(tableLog);
+    fprintf('\nUpdate your patient outcome with the new estimated value? (y/n)\n');
+    option = input('Option: ', 's');
+
+    if option == 'y' || option == 'Y'
+        new_case.out = outcome;
+    end
 end
 
