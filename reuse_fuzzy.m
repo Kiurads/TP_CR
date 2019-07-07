@@ -35,13 +35,13 @@ function [outcome] = reuse_fuzzy(retrieved_cases, new_case)
      X = [ones(size(x1)) x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20 x21 x22 x23 x24 x25];
      %X = [ones(size(x2)) x1 x2 x5];
      %y = y';
-     for i=1:size(y)
-         if(y(i)==1)
-             y(i) = 0.9999;
-         else
-             y(i) = 0.0001;
-         end
-     end
+%      for i=1:size(y)
+%          if(y(i)==1)
+%              y(i) = 0.9999;
+%          else
+%              y(i) = 0.0001;
+%          end
+%      end
      %y = y';
      b = X\y;
 
@@ -56,7 +56,7 @@ function [outcome] = reuse_fuzzy(retrieved_cases, new_case)
               +b(20)*new_case.pedigree_low+b(21)*new_case.pedigree_med+b(22)*new_case.pedigree_high...
               +b(23)*new_case.Age_young+b(24)*new_case.Age_youngadult+b(25)*new_case.Age_adult+b(26)*new_case.Age_elder;
               
-    fprintf('original value: %.3f\n', outcome);
+    fprintf('original value: %f\n', outcome);
 
     if outcome >= 0.5
         outcome = 1;

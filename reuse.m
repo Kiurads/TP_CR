@@ -18,13 +18,13 @@ function [outcome] = reuse(retrieved_cases, new_case)
      X = [ones(size(x1)) x1 x2 x3 x4 x5 x6 x7 x8];
      %X = [ones(size(x2)) x1 x2 x5];
      %y = y';
-     for i=1:size(y)
-         if(y(i)==1)
-             y(i) = 0.9999;
-         else
-             y(i) = 0.0001;
-         end
-     end
+%      for i=1:size(y)
+%          if(y(i)==1)
+%              y(i) = 0.9999;
+%          else
+%              y(i) = 0.0001;
+%          end
+%      end
      %y = y';
      b = X\y;
 

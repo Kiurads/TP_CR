@@ -4,7 +4,7 @@ function [new_case] = revise(new_case, outcome)
     option = input('Option: ', 's');
 
     if option == 'y' || option == 'Y'
-        new_case.out = outcome;
+        new_case.Outcome = outcome;
     end
 end
 

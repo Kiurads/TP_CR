@@ -1,4 +1,4 @@
-function [case_library] = retain(case_library, new_case, index, test_cases)
+function [case_library] = retain_fuzzy(case_library, new_case, index, test_cases)
 
     new_row = {new_case.Pregnancies, new_case.Glucose, new_case.BloodPressure, new_case.SkinThickness, new_case.Insulin, ...
                new_case.BMI, new_case.DiabetesPedigreeFunction, new_case.Age, new_case.Outcome};

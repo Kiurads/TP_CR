@@ -1,63 +1,97 @@
 function [fuzzy_library] = getFuzzy(case_library)
 
     fuzzy_values = [];
+    
     pedigree_low = [];
     pedigree_med = [];
     pedigree_high = [];
+    
     pregnan_low = [];
     pregnan_med = [];
     pregnan_high = [];
+    
     press_low = [];
     press_med = [];
     press_high = [];
     press_crit = [];
+    
     thick_low = [];
     thick_high = [];
+    
     glucose_low = [];
     glucose_med = [];
     glucose_high = [];
+    
     insulin_low = [];
     insulin_med = [];
     insulin_high = [];
+    
     BMI_low = [];
     BMI_med = [];
     BMI_high = [];
+    
     Age_young = [];
     Age_youngadult = [];
     Age_adult = [];
     Age_elder = [];
+    
     Outcome = [];
 
     for i=1:size(case_library,1)
         
-        fuzified_pedigree = [gaussmf(case_library{i,'DiabetesPedigreeFunction'},[0.2 0.275]) ...
-                          gaussmf(case_library{i,'DiabetesPedigreeFunction'},[0.2 1]) ...
-                          gaussmf(case_library{i,'DiabetesPedigreeFunction'},[0.2 2])];
-                      
-        fuzified_preg = [gaussmf(case_library{i,'Pregnancies'},[1.5 2.5]) ... 
-                       gaussmf(case_library{i,'Pregnancies'},[1.5 7.5]) ...
-                       gaussmf(case_library{i,'Pregnancies'},[1.5 15])];
+        if case_library{i,'DiabetesPedigreeFunction'} <= 0
+            fuzified_pedigree = [0 0 0];
+        else
+            fuzified_pedigree = [gaussmf(case_library{i,'DiabetesPedigreeFunction'},[0.2 0.275]) ...
+                                 gaussmf(case_library{i,'DiabetesPedigreeFunction'},[0.2 1]) ...
+                                 gaussmf(case_library{i,'DiabetesPedigreeFunction'},[0.2 2])];
+        end
+           
         
-        fuzified_glucose = [gaussmf(case_library{i,'Glucose'}, [30 50]) ...
-                            gaussmf(case_library{i,'Glucose'}, [30 132]) ...
-                            gaussmf(case_library{i,'Glucose'}, [30, 200])];
-                        
-        fuzified_press = [gaussmf(case_library{i,'BloodPressure'},[10 40]) ...
-                        gaussmf(case_library{i,'BloodPressure'},[10 70]) ...
-                        gaussmf(case_library{i,'BloodPressure'},[10 85]) ...
-                        gaussmf(case_library{i,'BloodPressure'},[10 107])];
-                        
-        fuzified_thick = [gaussmf(case_library{i,'SkinThickness'},[10 17.5]) ...
-                        gaussmf(case_library{i,'SkinThickness'},[10 50])];
-                        
-        fuzified_insulin = [gaussmf(case_library{i,'Insulin'}, [200 10]) ...
-                            gaussmf(case_library{i,'Insulin'}, [200 450]) ...
-                            gaussmf(case_library{i,'Insulin'}, [200 900])];
-                        
-        fuzified_bmi = [gaussmf(case_library{i,'BMI'}, [1.5 21.5]) ...
-                        gaussmf(case_library{i,'BMI'}, [1.5 27]) ...
-                        gaussmf(case_library{i,'BMI'}, [1.5 32.5])];
-                    
+        fuzified_preg = [gaussmf(case_library{i,'Pregnancies'},[1.5 2.5]) ... 
+                         gaussmf(case_library{i,'Pregnancies'},[1.5 7.5]) ...
+                         gaussmf(case_library{i,'Pregnancies'},[1.5 15])];
+        
+        if case_library{i,'Glucose'} <= 0
+            fuzified_glucose = [0 0 0];
+        else
+            fuzified_glucose = [gaussmf(case_library{i,'Glucose'}, [30 50]) ...
+                                gaussmf(case_library{i,'Glucose'}, [30 132]) ...
+                                gaussmf(case_library{i,'Glucose'}, [30, 200])];
+        end 
+        
+        if case_library{i,'BloodPressure'} <= 0
+            fuzified_press = [0 0 0 0];
+        else
+            fuzified_press = [gaussmf(case_library{i,'BloodPressure'},[10 40]) ...
+                              gaussmf(case_library{i,'BloodPressure'},[10 70]) ...
+                              gaussmf(case_library{i,'BloodPressure'},[10 85]) ...
+                              gaussmf(case_library{i,'BloodPressure'},[10 107])];
+        end
+        
+        if case_library{i,'SkinThickness'} <= 0
+            fuzified_thick = [0 0];
+        else
+            fuzified_thick = [gaussmf(case_library{i,'SkinThickness'},[10 17.5]) ...
+                              gaussmf(case_library{i,'SkinThickness'},[10 50])];
+        end
+        
+        if case_library{i,'Insulin'} <= 0
+            fuzified_insulin = [0 0 0];
+        else
+            fuzified_insulin = [gaussmf(case_library{i,'Insulin'}, [200 10]) ...
+                                gaussmf(case_library{i,'Insulin'}, [200 450]) ...
+                                gaussmf(case_library{i,'Insulin'}, [200 900])];
+        end        
+        
+        if case_library{i,'BMI'} <= 0
+            fuzified_bmi = [0 0 0];
+        else
+            fuzified_bmi = [gaussmf(case_library{i,'BMI'}, [1.5 21.5]) ...
+                            gaussmf(case_library{i,'BMI'}, [1.5 27]) ...
+                            gaussmf(case_library{i,'BMI'}, [1.5 32.5])];
+        end
+        
         fuzified_age = [gaussmf(case_library{i,'Age'}, [10.35 21]) ...
                         gaussmf(case_library{i,'Age'}, [10.35 44]) ...
                         gaussmf(case_library{i,'Age'}, [10.35 67]) ...
